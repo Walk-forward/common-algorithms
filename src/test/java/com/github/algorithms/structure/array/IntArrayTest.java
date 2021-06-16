@@ -10,12 +10,13 @@ public class IntArrayTest {
 
     @Test
     public void intArrayAddTest() {
-        IntArray intArray = new IntArray(10);
+        IntArray intArray = new IntArray(3);
         intArray.add(1);
         intArray.add(2);
         intArray.add(3);
         printIntArray(intArray);
     }
+    
     @Test
     public void intArrayRemoveTest() {
         IntArray intArray = new IntArray(10);
@@ -36,7 +37,7 @@ public class IntArrayTest {
         intArray.add(3);
         printIntArray(intArray);
 
-        logger.debug("数组 {}", intArray.get(0));
+        logger.debug("get方法返回值为： {}", intArray.get(0));
     }
 
     @Test
@@ -47,7 +48,7 @@ public class IntArrayTest {
         intArray.add(3);
         printIntArray(intArray);
 
-        intArray.set(2, 20);
+        logger.debug("set方法返回值为：{}", intArray.set(2, 20));
         printIntArray(intArray);
     }
 

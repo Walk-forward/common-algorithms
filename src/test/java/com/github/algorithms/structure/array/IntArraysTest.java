@@ -29,6 +29,21 @@ public class IntArraysTest {
         printIntArray(intArray);
     }
 
+    /**
+     * 测试二分查找
+     */
+    @Test
+    public void intArraysBinarySearchTest() {
+        IntArray intArray = new IntArray(10);
+        intArray.add(1);
+        intArray.add(2);
+        intArray.add(3);
+        intArray.add(4);
+        intArray.add(5);
+        int element = IntArrays.binarySearch(intArray, -6);
+        logger.debug("找到的元素下标是 {}", element);
+    }
+
     private void printIntArray(IntArray intArray) {
         for (int i = 0; i < intArray.size(); i++) {
             logger.debug("数组 {}, {}", i, intArray.get(i));
