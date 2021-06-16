@@ -4,8 +4,8 @@ public class IntArrays {
 
     /**
      * 选择排序
-     * @param intArray 需要排序的
-     * @return 有序的数组
+     * @param intArray 集合
+     * @return 有序的集合
      */
     public static IntArray selectSort(IntArray intArray) {
         IntArray sort = new IntArray(intArray.size());
@@ -56,6 +56,47 @@ public class IntArrays {
             }
         }
         return index;
+    }
+
+    /**
+     * 快速排序
+     * @param intArray 集合
+     * @return 有序的集合
+     */
+    public static IntArray quickSort(IntArray intArray) {
+        if (intArray.size() < 2) {
+            return intArray;
+        }
+        int baseValue = intArray.get(0);
+        IntArray leftIntArray = new IntArray(intArray.size());
+        IntArray rightIntArray = new IntArray(intArray.size());
+        for (int i = 1; i < intArray.size(); i++) {
+            if (baseValue > intArray.get(i)) {
+                leftIntArray.add(intArray.get(i));
+            }else {
+                rightIntArray.add(intArray.get(i));
+            }
+        }
+        return merge(quickSort(leftIntArray), baseValue, quickSort(rightIntArray));
+    }
+
+    /**
+     * 合并快速排序结果
+     * @param leftIntArray 左边集合
+     * @param baseValue 元素
+     * @param rightIntArray 右边集合
+     * @return 合并后的集合
+     */
+    private static IntArray merge(IntArray leftIntArray, int baseValue, IntArray rightIntArray) {
+        IntArray intArray = new IntArray(leftIntArray.size() + 1 + rightIntArray.size());
+        for (int i = 0; i < leftIntArray.size(); i++) {
+            intArray.add(leftIntArray.get(i));
+        }
+        intArray.add(baseValue);
+        for (int i = 0; i < rightIntArray.size(); i++) {
+            intArray.add(rightIntArray.get(i));
+        }
+        return intArray;
     }
 
 }

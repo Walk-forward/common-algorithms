@@ -8,6 +8,9 @@ public class IntArraysTest {
 
     Logger logger = LoggerFactory.getLogger(IntArraysTest.class);
 
+    /**
+     * 测试查找最小值
+     */
     @Test
     public void intArraysFindMinTest() {
         IntArray intArray = new IntArray(10);
@@ -17,6 +20,9 @@ public class IntArraysTest {
         logger.debug("最小数组下标 {}", IntArrays.minIndex(intArray));
     }
 
+    /**
+     * 测试选择排序
+     */
     @Test
     public void intArraysSelectSortTest() {
         IntArray intArray = new IntArray(10);
@@ -42,6 +48,26 @@ public class IntArraysTest {
         intArray.add(5);
         int element = IntArrays.binarySearch(intArray, -6);
         logger.debug("找到的元素下标是 {}", element);
+    }
+
+    /**
+     * 测试快速排序
+     */
+    @Test
+    public void intArraysQuickSortTest() {
+        IntArray intArray = new IntArray(10);
+        intArray.add(5);
+        intArray.add(2);
+        intArray.add(3);
+        intArray.add(5);
+        intArray.add(2);
+        intArray.add(3);
+        intArray.add(20);
+        intArray.add(30);
+        printIntArray(intArray);
+        intArray = IntArrays.quickSort(intArray);
+        logger.debug("排序后");
+        printIntArray(intArray);
     }
 
     private void printIntArray(IntArray intArray) {
