@@ -1,6 +1,5 @@
-package com.github.algorithms.structure.array;
+package com.github.algorithms.structure.linked;
 
-import com.github.algorithms.structure.linked.IntLinkedList;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
