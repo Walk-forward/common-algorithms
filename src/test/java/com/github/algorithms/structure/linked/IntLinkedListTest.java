@@ -33,8 +33,9 @@ public class IntLinkedListTest {
         intLinkedList.insert(2);
         intLinkedList.insert(3);
         printIntLinkedList(intLinkedList);
-        logger.debug("删除--- 3");
-        intLinkedList.delete(3);
+        logger.debug("删除--- 1");
+        intLinkedList.delete(1);
+        logger.debug("链表长度 {}", intLinkedList.size());
         printIntLinkedList(intLinkedList);
     }
 

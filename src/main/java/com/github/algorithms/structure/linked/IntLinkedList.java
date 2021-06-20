@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * 整数类型
  * 链表集合
  */
-public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> {
+public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> ,Cloneable {
 
     /**
      * 头节点
@@ -56,7 +56,11 @@ public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> {
         Link front = this.headLink;
         while (next.next != null) {
             if (data == next.data) {
-                front.next = next.next;
+                if (this.headLink == next) {
+                    this.headLink = next.next;
+                }else {
+                    front.next = next.next;
+                }
                 this.size --;
                 break;
             }
@@ -132,6 +136,16 @@ public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> {
     @Override
     public Spliterator<Integer> spliterator() {
         return Iterable.super.spliterator();
+    }
+
+    public IntLinkedList clone() throws CloneNotSupportedException {
+        IntLinkedList clone = (IntLinkedList) super.clone();
+        clone.headLink = new Link();
+        clone.nextLink = clone.headLink;
+        clone.iterator = null;
+        clone.size = 0;
+        this.forEachRemaining(clone::insert);
+        return clone;
     }
 
     private class Link {
