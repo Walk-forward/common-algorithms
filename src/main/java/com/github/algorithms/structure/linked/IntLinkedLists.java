@@ -34,4 +34,40 @@ public class IntLinkedLists {
         return sort;
     }
 
+    /**
+     * 快速排序
+     * @param intLinkedList 集合
+     * @return 有序的集合
+     */
+    public static IntLinkedList quickSort(IntLinkedList intLinkedList) {
+        if (intLinkedList.size() < 2) {
+            return intLinkedList;
+        }
+        intLinkedList.iterator();
+        int baseValue = intLinkedList.next();
+        IntLinkedList leftIntLinkedList = new IntLinkedList();
+        IntLinkedList rightIntLinkedList = new IntLinkedList();
+        while (intLinkedList.hasNext()) {
+            int value = intLinkedList.next();
+            if (baseValue > value) {
+                leftIntLinkedList.insert(value);
+            }else {
+                rightIntLinkedList.insert(value);
+            }
+        }
+        return merge(quickSort(leftIntLinkedList), baseValue, quickSort(rightIntLinkedList));
+    }
+
+    /**
+     * 合并快速排序结果
+     * @param leftIntLinkedList 左边集合
+     * @param baseValue 元素
+     * @param rightIntLinkedList 右边集合
+     * @return 合并后的集合
+     */
+    private static IntLinkedList merge(IntLinkedList leftIntLinkedList, int baseValue, IntLinkedList rightIntLinkedList) {
+        leftIntLinkedList.insert(baseValue);
+        rightIntLinkedList.forEach(leftIntLinkedList::insert);
+        return leftIntLinkedList;
+    }
 }

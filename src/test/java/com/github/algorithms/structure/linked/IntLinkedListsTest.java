@@ -23,6 +23,21 @@ public class IntLinkedListsTest {
         printIntLinkedList(intLinkedList);
     }
 
+    /**
+     * 测试快速排序
+     */
+    @Test
+    public void intLinkedListsQuickSortTest() {
+        IntLinkedList intLinkedList = new IntLinkedList();
+        intLinkedList.insert(1);
+        intLinkedList.insert(3);
+        intLinkedList.insert(2);
+        IntLinkedList sort = IntLinkedLists.quickSort(intLinkedList);
+        printIntLinkedList(sort);
+        logger.debug("----------排序前----------");
+        printIntLinkedList(intLinkedList);
+    }
+
     private void printIntLinkedList(IntLinkedList intLinkedList) {
         intLinkedList.forEach(v -> logger.debug("链表 {}", v));
     }
