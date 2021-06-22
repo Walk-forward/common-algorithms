@@ -39,6 +39,27 @@ public class IntLinkedListTest {
         printIntLinkedList(intLinkedList);
     }
 
+    /**
+     * 测试链表删除
+     */
+    @Test
+    public void intLinkedListRemoveTest() {
+        IntLinkedList intLinkedList = new IntLinkedList();
+        intLinkedList.insert(1);
+        intLinkedList.insert(2);
+        intLinkedList.insert(3);
+        intLinkedList.insert(21);
+        intLinkedList.insert(22);
+        intLinkedList.insert(23);
+        intLinkedList.iterator();
+        while (intLinkedList.hasNext()) {
+            Integer next = intLinkedList.next();
+            logger.debug("{}", next);
+            intLinkedList.remove();
+        }
+        printIntLinkedList(intLinkedList);
+    }
+
     private void printIntLinkedList(IntLinkedList intLinkedList) {
         intLinkedList.forEach(v -> logger.debug("链表 {}", v));
     }

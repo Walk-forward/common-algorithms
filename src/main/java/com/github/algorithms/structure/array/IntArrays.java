@@ -67,10 +67,12 @@ public class IntArrays {
         if (intArray.size() < 2) {
             return intArray;
         }
-        int baseValue = intArray.get(0);
+        int baseIndex = (int)Math.floor(Math.random() * intArray.size());
+        int baseValue = intArray.get(baseIndex);
+        intArray.remove(baseIndex);
         IntArray leftIntArray = new IntArray(intArray.size());
         IntArray rightIntArray = new IntArray(intArray.size());
-        for (int i = 1; i < intArray.size(); i++) {
+        for (int i = 0; i < intArray.size(); i++) {
             if (baseValue > intArray.get(i)) {
                 leftIntArray.add(intArray.get(i));
             }else {

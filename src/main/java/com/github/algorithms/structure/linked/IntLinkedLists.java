@@ -40,13 +40,33 @@ public class IntLinkedLists {
      * @return 有序的集合
      */
     public static IntLinkedList quickSort(IntLinkedList intLinkedList) {
+        try {
+            IntLinkedList clone = intLinkedList.clone();
+            return internalQuickSort(clone);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        throw new NullPointerException();
+    }
+    /**
+     * 快速排序
+     * @param intLinkedList 集合
+     * @return 有序的集合
+     */
+    private static IntLinkedList internalQuickSort(IntLinkedList intLinkedList) {
         if (intLinkedList.size() < 2) {
             return intLinkedList;
         }
+        int baseNum = (int)Math.floor(Math.random() * intLinkedList.size()) + 1;
         intLinkedList.iterator();
         int baseValue = intLinkedList.next();
+        for (int i = 1; i < baseNum; i++) {
+            baseValue = intLinkedList.next();
+        }
+        intLinkedList.remove();
         IntLinkedList leftIntLinkedList = new IntLinkedList();
         IntLinkedList rightIntLinkedList = new IntLinkedList();
+        intLinkedList.iterator();
         while (intLinkedList.hasNext()) {
             int value = intLinkedList.next();
             if (baseValue > value) {
@@ -55,7 +75,7 @@ public class IntLinkedLists {
                 rightIntLinkedList.insert(value);
             }
         }
-        return merge(quickSort(leftIntLinkedList), baseValue, quickSort(rightIntLinkedList));
+        return merge(internalQuickSort(leftIntLinkedList), baseValue, internalQuickSort(rightIntLinkedList));
     }
 
     /**

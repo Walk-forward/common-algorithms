@@ -1,6 +1,7 @@
 package com.github.algorithms.structure.linked;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
@@ -29,6 +30,11 @@ public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> ,Clon
      * 下一个节点
      */
     private Link iterator;
+
+    /**
+     * 上一个节点
+     */
+    private Link first;
 
     public IntLinkedList() {
         this.headLink = new Link();
@@ -76,11 +82,17 @@ public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> ,Clon
      * @param link 元素
      */
     public void delete(Link link) {
+        if (link == null)
+            throw new NoSuchElementException();
         Link next = this.headLink;
         Link front = this.headLink;
         while (next.next != null) {
             if (link.equals(next)) {
-                front.next = next.next;
+                if (this.headLink == next) {
+                    this.headLink = next.next;
+                }else {
+                    front.next = next.next;
+                }
                 this.size --;
                 break;
             }
@@ -106,6 +118,7 @@ public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> ,Clon
 
     @Override
     public Integer next() {
+        this.first = this.iterator;
         int data = this.iterator.data;
         this.iterator = this.iterator.next;
         return data;
@@ -113,18 +126,18 @@ public class IntLinkedList implements Iterator<Integer>, Iterable<Integer> ,Clon
 
     @Override
     public void remove() {
-        delete(iterator);
+        delete(this.first);
     }
 
     @Override
     public void forEachRemaining(Consumer<? super Integer> action) {
-        iterator = headLink;
+        this.iterator = this.headLink;
         Iterator.super.forEachRemaining(action);
     }
 
     @Override
     public Iterator<Integer> iterator() {
-        iterator = headLink;
+        this.iterator = this.headLink;
         return this;
     }
 
