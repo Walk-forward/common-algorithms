@@ -16,6 +16,13 @@ public class ArrayList<E> {
     private int size;
 
     /**
+     * 创建集合
+     */
+    public ArrayList() {
+        this(16);
+    }
+
+    /**
      * 指定集合容量
      * @param length 集合容量
      */
