@@ -1,9 +1,12 @@
 package com.github.algorithms.structure.array;
 
+import java.util.Iterator;
+import java.util.function.Consumer;
+
 /**
  * 数组集合
  */
-public class ArrayList<E> {
+public class ArrayList<E> implements Iterator<E>, Iterable<E> {
 
     /**
      * 元素
@@ -14,6 +17,11 @@ public class ArrayList<E> {
      * 元素个数
      */
     private int size;
+
+    /**
+     * 迭代器下标
+     */
+    private int index;
 
     /**
      * 创建集合
@@ -61,14 +69,16 @@ public class ArrayList<E> {
      * 删除指定下标元素
      * @param index 下标索引
      */
-    public void remove(int index) {
+    public E remove(int index) {
         if (index < 0 || index >= size) {
             throw new RuntimeException("下标索引元素不存在");
         }
+        E oldElement = elementData[index];
         for (int i = index; i < size - 1; i++) {
             this.elementData[i] = this.elementData[i + 1];
         }
         this.size --;
+        return oldElement;
     }
 
     /**
@@ -95,7 +105,30 @@ public class ArrayList<E> {
         }
         E oldElement = this.elementData[index];
         this.elementData[index] = element;
+        if (oldElement == null) {
+            this.size ++;
+        }
         return oldElement;
     }
 
+    @Override
+    public Iterator<E> iterator() {
+        this.index = 0;
+        return this;
+    }
+
+    @Override
+    public void forEach(Consumer<? super E> action) {
+        Iterable.super.forEach(action);
+    }
+
+    @Override
+    public boolean hasNext() {
+        return this.index < this.elementData.length;
+    }
+
+    @Override
+    public E next() {
+        return elementData[index ++];
+    }
 }
