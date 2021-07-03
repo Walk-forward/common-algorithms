@@ -54,8 +54,9 @@ public class HashSet<E> implements Iterator<E>, Iterable<E> {
         if (barrelSize < 16) {
             barrelSize = 16;
         }else {
-//            TODO 取下一个2为底次幂
-//            barrelSize
+            final int MAXIMUM_CAPACITY = 1 << 30;
+            int n = -1 >>> Integer.numberOfLeadingZeros(barrelSize - 1);
+            barrelSize = (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
         }
 
         this.barrelSize = barrelSize;

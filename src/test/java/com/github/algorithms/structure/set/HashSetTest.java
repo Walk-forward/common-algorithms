@@ -7,12 +7,7 @@ import org.slf4j.LoggerFactory;
 public class HashSetTest {
 
     Logger logger = LoggerFactory.getLogger(HashSetTest.class);
-    @Test
-    public void tableSizeForTest() {
-        int MAXIMUM_CAPACITY = 1 << 30;
-        int n = -1 >>> Integer.numberOfLeadingZeros(13);
-        logger.debug("{}", (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1);
-    }
+
     @Test
     public void hashSetAddTest() {
         HashSet<String> hashSet = new HashSet<>();

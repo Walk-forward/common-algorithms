@@ -51,6 +51,13 @@ public class HashMap<K,V> {
      * @param loadFactor 装载因子
      */
     public HashMap(int barrelSize, double loadFactor) {
+        if (barrelSize < 16) {
+            barrelSize = 16;
+        }else {
+            final int MAXIMUM_CAPACITY = 1 << 30;
+            int n = -1 >>> Integer.numberOfLeadingZeros(barrelSize - 1);
+            barrelSize = (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+        }
         this.barrelSize = barrelSize;
         this.loadFactor = loadFactor;
         this.barrel = new ArrayList<>(this.barrelSize);
@@ -98,8 +105,27 @@ public class HashMap<K,V> {
         }
         if (f) {
             linkedList.insert(newNode);
+            if ((double)size / barrelSize > loadFactor) {
+                barrelSize = barrelSize * 2;
+                rehashed();
+            }
             this.size ++;
         }
+    }
+
+    /**
+     * 再散列
+     */
+    private void rehashed() {
+        HashMap<K, V> hashMap = new HashMap<>(this.barrelSize, this.loadFactor);
+        HashSet<Entry<K, V>> entries = entrySet();
+        entries.forEach(e -> {
+            hashMap.put(e.getKey(), e.getValue());
+        });
+        barrel = hashMap.barrel;
+
+//        ArrayList<Object> arrayList = new ArrayList<>(this.barrelSize);
+//        barrel.forEach();
     }
 
     /**
@@ -123,13 +149,14 @@ public class HashMap<K,V> {
 
     public HashSet<HashMap<K, V>.Entry<K, V>> entrySet() {
         HashSet<HashMap<K, V>.Entry<K, V>> hashSet = new HashSet<>();
-        for (int i = 0; i < barrelSize; i++) {
-            LinkedList<Node<K, V>> linkedList = barrel.get(i);
-            linkedList.forEach(kvNode -> {
-                Entry<K, V> entry = new Entry<>(kvNode.k, kvNode.v);
-                hashSet.add(entry);
-            });
-        }
+        barrel.forEach(linkedList -> {
+            if (linkedList != null) {
+                linkedList.forEach(kvNode -> {
+                    Entry<K, V> entry = new Entry<>(kvNode.k, kvNode.v);
+                    hashSet.add(entry);
+                });
+            }
+        });
         return hashSet;
     }
 
