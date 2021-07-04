@@ -34,7 +34,8 @@ public class LinkedListTest {
         linkedList.insert(3);
         printLinkedList(linkedList);
         logger.debug("删除--- 1");
-        linkedList.delete(1);
+        boolean delete = linkedList.delete(1);
+        logger.debug("删除结果 {}", delete);
         logger.debug("链表长度 {}", linkedList.size());
         printLinkedList(linkedList);
     }
@@ -61,7 +62,7 @@ public class LinkedListTest {
     }
 
     /**
-     * 测试链表删除
+     * 测试链表修改
      */
     @Test
     public void linkedListSetTest() {

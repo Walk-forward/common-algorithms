@@ -76,7 +76,8 @@ public class LinkedList<E> implements Iterator<E>, Iterable<E> ,Cloneable {
      * 删除元素
      * @param value 元素
      */
-    public void delete(E value) {
+    public boolean delete(E value) {
+        boolean isSuccess = false;
         Node next = this.headNode;
         Node front = this.headNode;
         while (next.node != null) {
@@ -86,6 +87,7 @@ public class LinkedList<E> implements Iterator<E>, Iterable<E> ,Cloneable {
                 }else {
                     front.node = next.node;
                 }
+                isSuccess = true;
                 this.size --;
                 break;
             }
@@ -94,6 +96,7 @@ public class LinkedList<E> implements Iterator<E>, Iterable<E> ,Cloneable {
             }
             next = next.node;
         }
+        return isSuccess;
     }
 
     /**
