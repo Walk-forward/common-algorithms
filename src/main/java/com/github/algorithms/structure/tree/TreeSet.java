@@ -1,13 +1,12 @@
 package com.github.algorithms.structure.tree;
 
-import java.util.Iterator;
-import java.util.function.Consumer;
+import com.github.algorithms.structure.queue.Queue;
 
 /**
  * 数集
  * @param <E>
  */
-public class TreeSet<E extends Comparable<E>> implements Iterator<E>, Iterable<E> {
+public class TreeSet<E extends Comparable<E>> {
 
     private Node root;
 
@@ -58,26 +57,47 @@ public class TreeSet<E extends Comparable<E>> implements Iterator<E>, Iterable<E
 //
 //    }
 
-    @Override
-    public Iterator<E> iterator() {
-        iteratorNode = root;
-        return this;
+    /**
+     * 先序遍历（深度优先遍历）
+     * 迭代、递归
+     * @return
+     */
+    private Queue<E> preorderTraversal() {
+        Queue<E> queue = new Queue<>();
+
+        return queue;
     }
 
-    @Override
-    public void forEach(Consumer<? super E> action) {
-        Iterable.super.forEach(action);
+    /**
+     * 中序遍历
+     * @return
+     */
+    private Queue<E> inOrderTraversal() {
+        Queue<E> queue = new Queue<>();
+
+        return queue;
     }
 
-    @Override
-    public boolean hasNext() {
-        return false;
+    /**
+     * 后序遍历
+     * @return
+     */
+    private Queue<E> postOrderTraversal() {
+        Queue<E> queue = new Queue<>();
+
+        return queue;
     }
 
-    @Override
-    public E next() {
-        return null;
+    /**
+     * 层次遍历（层次遍历广度优先遍历）
+     * @return
+     */
+    private Queue<E> breadthFirstTraversal() {
+        Queue<E> queue = new Queue<>();
+
+        return queue;
     }
+
     private class Node {
         private E value;
         private Node leftNode;
