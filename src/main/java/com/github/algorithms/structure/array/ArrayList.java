@@ -1,6 +1,8 @@
 package com.github.algorithms.structure.array;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -130,5 +132,20 @@ public class ArrayList<E> implements Iterator<E>, Iterable<E> {
     @Override
     public E next() {
         return elementData[index ++];
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArrayList<?> arrayList = (ArrayList<?>) o;
+        return size == arrayList.size && Arrays.equals(elementData, arrayList.elementData);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(size);
+        result = 31 * result + Arrays.hashCode(elementData);
+        return result;
     }
 }

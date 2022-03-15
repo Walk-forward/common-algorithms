@@ -1,6 +1,7 @@
 package com.github.algorithms.structure.tree;
 
 import com.github.algorithms.structure.queue.Queue;
+import com.github.algorithms.structure.stack.Stack;
 
 /**
  * 数集
@@ -58,23 +59,64 @@ public class TreeSet<E extends Comparable<E>> {
 //    }
 
     /**
-     * 先序遍历（深度优先遍历）
-     * 迭代、递归
+     * 先序遍历（深度优先遍历）,根左右
+     * 迭代
      * @return
      */
-    private Queue<E> preorderTraversal() {
+    public Queue<E> preorderTraversal() {
         Queue<E> queue = new Queue<>();
-
+        if (this.root == null) {
+            return queue;
+        }
+        Stack<Node> stack = new Stack<>();
+        stack.push(this.root);
+        while (stack.getSize() != 0) {
+            Node node = stack.pop();
+            queue.push(node.value);
+            if (node.rightNode != null) {
+                stack.push(node.rightNode);
+            }
+            if (node.leftNode != null) {
+                stack.push(node.leftNode);
+            }
+        }
         return queue;
     }
 
     /**
-     * 中序遍历
+     * 中序遍历，左中右
+     * 迭代
      * @return
      */
     private Queue<E> inOrderTraversal() {
         Queue<E> queue = new Queue<>();
+        if (this.root == null) {
+            return queue;
+        }
+        Node nodep = this.root;
+        Stack<Node> stack = new Stack<>();
+        stack.push(this.root);
+        while (stack.getSize() != 0) {
+            if (stack.peek().leftNode == nodep) {
+                nodep = stack.pop();
+                queue.push(nodep.value);
+            }else if(stack.peek().leftNode != null) {
+                stack.push(stack.peek().leftNode);
+            }else if(stack.peek().rightNode != null) {
 
+            }else {
+                nodep = stack.pop();
+                queue.push(nodep.value);
+            }
+            Node node = stack.pop();
+            queue.push(node.value);
+            if (node.rightNode != null) {
+                stack.push(node.rightNode);
+            }
+            if (node.leftNode != null) {
+                stack.push(node.leftNode);
+            }
+        }
         return queue;
     }
 

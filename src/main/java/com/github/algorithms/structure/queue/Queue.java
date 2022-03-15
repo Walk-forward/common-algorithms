@@ -1,6 +1,9 @@
 package com.github.algorithms.structure.queue;
 
+import com.github.algorithms.structure.array.ArrayList;
+
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -87,6 +90,31 @@ public class Queue<E> implements Iterator<E>, Iterable<E> {
         E value = iteratorNode.value;
         iteratorNode = iteratorNode.nextNode;
         return value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Queue<?> queue = (Queue<?>) o;
+        if (size != queue.size) return false;
+        Iterator<E> thisIterator = this.iterator();
+        Iterator<?> iterator = queue.iterator();
+        while (thisIterator.hasNext() && iterator.hasNext()) {
+            if (!thisIterator.next().equals(iterator.next())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        ArrayList<E> arrayList = new ArrayList<>(size);
+        for (E e : this) {
+            arrayList.add(e);
+        }
+        return arrayList.hashCode();
     }
 
     private class Node {
