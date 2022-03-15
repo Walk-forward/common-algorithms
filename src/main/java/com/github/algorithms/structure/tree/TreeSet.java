@@ -90,9 +90,6 @@ public class TreeSet<E extends Comparable<E>> {
      */
     public Queue<E> inOrderTraversal() {
         Queue<E> queue = new Queue<>();
-        if (this.root == null) {
-            return queue;
-        }
         Node node = this.root;
         Stack<Node> stack = new Stack<>();
         while (node != null || stack.getSize() != 0) {
@@ -109,7 +106,8 @@ public class TreeSet<E extends Comparable<E>> {
     }
 
     /**
-     * 后序遍历
+     * 后序遍历，左右根
+     * 迭代
      * @return 队列
      */
     private Queue<E> postOrderTraversal() {
