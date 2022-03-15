@@ -61,7 +61,7 @@ public class TreeSet<E extends Comparable<E>> {
     /**
      * 先序遍历（深度优先遍历）,根左右
      * 迭代
-     * @return
+     * @return 队列
      */
     public Queue<E> preorderTraversal() {
         Queue<E> queue = new Queue<>();
@@ -86,35 +86,23 @@ public class TreeSet<E extends Comparable<E>> {
     /**
      * 中序遍历，左中右
      * 迭代
-     * @return
+     * @return 队列
      */
-    private Queue<E> inOrderTraversal() {
+    public Queue<E> inOrderTraversal() {
         Queue<E> queue = new Queue<>();
         if (this.root == null) {
             return queue;
         }
-        Node nodep = this.root;
+        Node node = this.root;
         Stack<Node> stack = new Stack<>();
-        stack.push(this.root);
-        while (stack.getSize() != 0) {
-            if (stack.peek().leftNode == nodep) {
-                nodep = stack.pop();
-                queue.push(nodep.value);
-            }else if(stack.peek().leftNode != null) {
-                stack.push(stack.peek().leftNode);
-            }else if(stack.peek().rightNode != null) {
-
-            }else {
-                nodep = stack.pop();
-                queue.push(nodep.value);
-            }
-            Node node = stack.pop();
-            queue.push(node.value);
-            if (node.rightNode != null) {
-                stack.push(node.rightNode);
-            }
-            if (node.leftNode != null) {
-                stack.push(node.leftNode);
+        while (node != null || stack.getSize() != 0) {
+            if (node != null) {
+                stack.push(node);
+                node = node.leftNode;
+            } else {
+                Node pop = stack.pop();
+                queue.push(pop.value);
+                node = pop.rightNode;
             }
         }
         return queue;
@@ -122,7 +110,7 @@ public class TreeSet<E extends Comparable<E>> {
 
     /**
      * 后序遍历
-     * @return
+     * @return 队列
      */
     private Queue<E> postOrderTraversal() {
         Queue<E> queue = new Queue<>();
@@ -132,7 +120,7 @@ public class TreeSet<E extends Comparable<E>> {
 
     /**
      * 层次遍历（层次遍历广度优先遍历）
-     * @return
+     * @return 队列
      */
     private Queue<E> breadthFirstTraversal() {
         Queue<E> queue = new Queue<>();
