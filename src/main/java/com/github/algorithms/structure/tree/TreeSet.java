@@ -110,9 +110,26 @@ public class TreeSet<E extends Comparable<E>> {
      * 迭代
      * @return 队列
      */
-    private Queue<E> postOrderTraversal() {
+    public Queue<E> postOrderTraversal() {
         Queue<E> queue = new Queue<>();
-
+        Node node = this.root;
+        Node node1 = this.root;
+        Stack<Node> stack = new Stack<>();
+        while (node != null || stack.getSize() != 0) {
+            if (node != null) {
+                stack.push(node);
+                node = node.leftNode;
+            } else {
+                Node pop = stack.pop();
+                if (pop.rightNode == null || pop.rightNode == node1) {
+                    node1 = pop;
+                    queue.push(pop.value);
+                } else {
+                    node = pop.rightNode;
+                    stack.push(pop);
+                }
+            }
+        }
         return queue;
     }
 
