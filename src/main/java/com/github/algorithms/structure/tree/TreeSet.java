@@ -137,9 +137,23 @@ public class TreeSet<E extends Comparable<E>> {
      * 层次遍历（层次遍历广度优先遍历）
      * @return 队列
      */
-    private Queue<E> breadthFirstTraversal() {
+    public Queue<E> breadthFirstTraversal() {
         Queue<E> queue = new Queue<>();
-
+        if (this.root == null) {
+            return queue;
+        }
+        Queue<Node> queue1 = new Queue<>();
+        queue1.push(this.root);
+        while (queue1.getSize() != 0) {
+            Node node = queue1.pop();
+            queue.push(node.value);
+            if (node.leftNode != null) {
+                queue1.push(node.leftNode);
+            }
+            if (node.rightNode != null) {
+                queue1.push(node.rightNode);
+            }
+        }
         return queue;
     }
 

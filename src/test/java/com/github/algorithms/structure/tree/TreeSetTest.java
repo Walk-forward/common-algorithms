@@ -78,4 +78,24 @@ public class TreeSetTest {
         queue.forEach(v -> logger.debug(v));
         assert queueTest.equals(queue);
     }
+
+    @Test
+    public void breadthFirstTraversalTest() {
+        Queue<String> queueTest = new Queue<>();
+        queueTest.push("5");
+        queueTest.push("3");
+        queueTest.push("6");
+        queueTest.push("2");
+        queueTest.push("4");
+
+        TreeSet<String> treeSet = new TreeSet<>();
+        treeSet.add("5");
+        treeSet.add("3");
+        treeSet.add("6");
+        treeSet.add("2");
+        treeSet.add("4");
+        Queue<String> queue = treeSet.breadthFirstTraversal();
+        queue.forEach(v -> logger.debug(v));
+        assert queueTest.equals(queue);
+    }
 }
