@@ -43,9 +43,22 @@ public class HashMapTest {
         printHashMap(hashMap);
     }
 
+    /**
+     * 测试散列表forEach
+     */
+    @Test
+    public void hashMapForEachTest() {
+        HashMap<Integer, String> hashMap = new HashMap<>(2);
+        hashMap.put(1, "苹果");
+        hashMap.put(2, "橘子");
+        hashMap.put(3, "菠萝");
+        hashMap.put(4, "水果");
+        hashMap.forEach((k, v) -> logger.debug("key = {}, value = {}", k, v));
+    }
+
     private void printHashMap(HashMap<Integer, String> hashMap) {
-        HashSet<HashMap<Integer, String>.Entry<Integer, String>> entryHashSet = hashMap.entrySet();
-        for (HashMap<Integer, String> .Entry<Integer, String> entry: entryHashSet) {
+        HashSet<HashMap.Entry<Integer, String>> entryHashSet = hashMap.entrySet();
+        for (HashMap.Entry<Integer, String> entry: entryHashSet) {
             logger.debug("key = {}, value = {}", entry.getKey(), entry.getValue());
         }
     }

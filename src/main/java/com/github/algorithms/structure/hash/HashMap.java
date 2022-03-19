@@ -5,6 +5,8 @@ import com.github.algorithms.structure.linked.LinkedList;
 import com.github.algorithms.structure.set.HashSet;
 
 import java.util.Iterator;
+import java.util.Objects;
+import java.util.function.BiConsumer;
 
 /**
  * 散列表
@@ -119,13 +121,8 @@ public class HashMap<K,V> {
     private void rehashed() {
         HashMap<K, V> hashMap = new HashMap<>(this.barrelSize, this.loadFactor);
         HashSet<Entry<K, V>> entries = entrySet();
-        entries.forEach(e -> {
-            hashMap.put(e.getKey(), e.getValue());
-        });
+        entries.forEach(e -> hashMap.put(e.getKey(), e.getValue()));
         barrel = hashMap.barrel;
-
-//        ArrayList<Object> arrayList = new ArrayList<>(this.barrelSize);
-//        barrel.forEach();
     }
 
     /**
@@ -147,8 +144,8 @@ public class HashMap<K,V> {
         return null;
     }
 
-    public HashSet<HashMap<K, V>.Entry<K, V>> entrySet() {
-        HashSet<HashMap<K, V>.Entry<K, V>> hashSet = new HashSet<>();
+    public HashSet<HashMap.Entry<K, V>> entrySet() {
+        HashSet<HashMap.Entry<K, V>> hashSet = new HashSet<>();
         barrel.forEach(linkedList -> {
             if (linkedList != null) {
                 linkedList.forEach(kvNode -> {
@@ -160,17 +157,24 @@ public class HashMap<K,V> {
         return hashSet;
     }
 
-    public class Entry<K1, V1> {
+    public void forEach(BiConsumer<? super K, ? super V> action) {
+        Objects.requireNonNull(action);
+        for (Entry<K, V> entry : entrySet()) {
+            action.accept(entry.getKey(), entry.getValue());
+        }
+    }
+
+    public static class Entry<K1, V1> {
 
         /**
          * 键
          */
-        private K1 k;
+        private final K1 k;
 
         /**
          * 值
          */
-        private V1 v;
+        private final V1 v;
 
         public Entry(K1 k, V1 v) {
             this.k = k;
@@ -190,21 +194,7 @@ public class HashMap<K,V> {
     /**
      * 节点
      */
-    private class Node<K1, V1> {
+    private record Node<K1, V1>(K1 k, V1 v) {
 
-        /**
-         * 键
-         */
-        private K1 k;
-
-        /**
-         * 值
-         */
-        private V1 v;
-
-        public Node(K1 k, V1 v) {
-            this.k = k;
-            this.v = v;
-        }
     }
 }

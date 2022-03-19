@@ -1,8 +1,11 @@
 package com.github.algorithms.structure.linked;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.NoSuchElementException;
 
 public class LinkedListTest {
 
@@ -70,7 +73,7 @@ public class LinkedListTest {
         linkedList.insert(1);
         linkedList.insert(2);
         linkedList.insert(3);
-        linkedList.set(-1, 20);
+        Assertions.assertThrows(NoSuchElementException.class, () -> linkedList.set(-1, 20));
         logger.debug("链表长度 {}", linkedList.size());
         printLinkedList(linkedList);
     }
