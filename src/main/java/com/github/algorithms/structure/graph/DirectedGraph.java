@@ -1,6 +1,7 @@
 package com.github.algorithms.structure.graph;
 
 import com.github.algorithms.structure.hash.HashMap;
+import com.github.algorithms.structure.queue.Queue;
 import com.github.algorithms.structure.set.HashSet;
 
 import java.util.function.BiConsumer;
@@ -38,5 +39,40 @@ public class DirectedGraph<T> {
 
     public void forEach(BiConsumer<? super T, ? super HashSet<T>> action) {
         graph.forEach(action);
+    }
+
+    /**
+     * 广度优先搜索
+     * @param searchNode 搜索节点
+     * @return boolean
+     */
+    public boolean breadthFirstSearch(T searchNode) {
+        Queue<T> queue = new Queue<>();
+        HashMap<T, Boolean> hashMap = new HashMap<>();
+        graph.forEach((t, ts) -> {
+            queue.push(t);
+            hashMap.put(t, true);
+        });
+        while (queue.getSize() != 0) {
+            T node = queue.pop();
+            if (node == null) {
+                break;
+            }
+            if (searchNode.equals(node)) {
+                return true;
+            }else {
+                HashSet<T> hashSet = graph.get(node);
+                if (hashSet == null) {
+                    continue;
+                }
+                hashSet.forEach(t -> {
+                    if (null == hashMap.get(t)) {
+                        queue.push(t);
+                        hashMap.put(t, true);
+                    }
+                });
+            }
+        }
+        return false;
     }
 }
