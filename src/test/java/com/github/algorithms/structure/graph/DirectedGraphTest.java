@@ -59,13 +59,19 @@ class DirectedGraphTest {
         String[] thom = {};
         directedGraph.put("THOM", thom);
 
-        boolean searchThom = directedGraph.breadthFirstSearch("THOM");
-        assert searchThom;
+        int searchThom = directedGraph.breadthFirstSearch("你","THOM");
+        assert searchThom == 2;
 
-        boolean searchYou = directedGraph.breadthFirstSearch("你");
-        assert searchYou;
+        int searchYou = directedGraph.breadthFirstSearch("你","你");
+        assert searchYou == 0;
 
-        boolean searchHello = directedGraph.breadthFirstSearch("你好");
-        assert !searchHello;
+        int searchHello = directedGraph.breadthFirstSearch("你","你好");
+        assert searchHello == -1;
+
+        int searchClaire = directedGraph.breadthFirstSearch("CLAIRE","你");
+        assert searchClaire == -1;
+
+        int searchBob = directedGraph.breadthFirstSearch("BOB","PEGGY");
+        assert searchBob == 1;
     }
 }

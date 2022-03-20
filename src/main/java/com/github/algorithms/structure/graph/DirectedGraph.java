@@ -43,36 +43,41 @@ public class DirectedGraph<T> {
 
     /**
      * 广度优先搜索
-     * @param searchNode 搜索节点
-     * @return boolean
+     * @param rootNode 起始节点
+     * @param searchNode 搜索值
+     * @return 距离，没有找到 = -1
      */
-    public boolean breadthFirstSearch(T searchNode) {
+    public int breadthFirstSearch(T rootNode, T searchNode) {
+        if (rootNode == searchNode) {
+            return 0;
+        }
         Queue<T> queue = new Queue<>();
-        HashMap<T, Boolean> hashMap = new HashMap<>();
-        graph.forEach((t, ts) -> {
-            queue.push(t);
-            hashMap.put(t, true);
-        });
+        HashMap<T, Integer> hashMap = new HashMap<>();
+        HashSet<T> ts1 = graph.get(rootNode);
+        if (ts1 != null) {
+            ts1.forEach(t -> {
+                queue.push(t);
+                hashMap.put(t, 1);
+            });
+        }
         while (queue.getSize() != 0) {
             T node = queue.pop();
-            if (node == null) {
-                break;
-            }
             if (searchNode.equals(node)) {
-                return true;
+                return hashMap.get(node);
             }else {
                 HashSet<T> hashSet = graph.get(node);
                 if (hashSet == null) {
                     continue;
                 }
+                Integer distance = hashMap.get(node);
                 hashSet.forEach(t -> {
                     if (null == hashMap.get(t)) {
                         queue.push(t);
-                        hashMap.put(t, true);
+                        hashMap.put(t, distance + 1);
                     }
                 });
             }
         }
-        return false;
+        return -1;
     }
 }
