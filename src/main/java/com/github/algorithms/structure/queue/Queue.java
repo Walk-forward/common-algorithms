@@ -3,7 +3,6 @@ package com.github.algorithms.structure.queue;
 import com.github.algorithms.structure.array.ArrayList;
 
 import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Consumer;
 
 /**
@@ -67,6 +66,14 @@ public class Queue<E> implements Iterator<E>, Iterable<E> {
      */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * 判断队列是否为空
+     * @return 为空返回 true
+     */
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     @Override

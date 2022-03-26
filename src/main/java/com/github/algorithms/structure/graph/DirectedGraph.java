@@ -8,7 +8,7 @@ import java.util.function.BiConsumer;
 
 /**
  * 有向图
- * @param <T> 定点
+ * @param <T> 顶点
  */
 public class DirectedGraph<T> {
 
@@ -23,8 +23,8 @@ public class DirectedGraph<T> {
 
     /**
      * 向图中添加元素
-     * @param node 定点
-     * @param nodes 定点集
+     * @param node 顶点
+     * @param nodes 顶点集
      */
     public void put(T node, T[] nodes) {
         HashSet<T> set = this.graph.get(node);
