@@ -3,6 +3,7 @@ package com.github.algorithms.structure.queue;
 import com.github.algorithms.structure.array.ArrayList;
 
 import java.util.Iterator;
+import java.util.StringJoiner;
 import java.util.function.Consumer;
 
 /**
@@ -122,6 +123,19 @@ public class Queue<E> implements Iterator<E>, Iterable<E> {
             arrayList.add(e);
         }
         return arrayList.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        Iterator<E> iterator = iterator();
+        while (iterator.hasNext()) {
+            stringJoiner.add(iterator.next().toString());
+        }
+
+        return "Queue{" +
+                "headNode=" + stringJoiner +
+                '}';
     }
 
     private class Node {
