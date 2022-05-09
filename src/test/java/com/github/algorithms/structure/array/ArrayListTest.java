@@ -86,4 +86,17 @@ public class ArrayListTest {
             logger.debug("数组 {}, {}", i, arrayList.get(i));
         }
     }
+
+    @Test
+    public void cloneTest() throws CloneNotSupportedException {
+        ArrayList<String> arrayList = new ArrayList<>(3);
+        arrayList.add("1");
+        arrayList.add("2");
+        arrayList.add("3");
+        ArrayList<String> arrayList1 = arrayList.clone();
+        arrayList1.set(1, "a");
+
+        logger.debug("原集合 {}", arrayList);
+        logger.debug("克隆集合 {}", arrayList1);
+    }
 }

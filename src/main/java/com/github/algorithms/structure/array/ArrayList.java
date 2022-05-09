@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 /**
  * 数组集合
  */
-public class ArrayList<E> implements Iterator<E>, Iterable<E> {
+public class ArrayList<E> implements Iterator<E>, Iterable<E>, Cloneable {
 
     /**
      * 元素
@@ -147,5 +147,29 @@ public class ArrayList<E> implements Iterator<E>, Iterable<E> {
         int result = Objects.hash(size);
         result = 31 * result + Arrays.hashCode(elementData);
         return result;
+    }
+
+    @Override
+    public ArrayList<E> clone() throws CloneNotSupportedException {
+        ArrayList<E> arrayList = (ArrayList) super.clone();
+        arrayList.elementData = this.elementData.clone();
+        return arrayList;
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for (int i = 0; i < elementData.length; i++) {
+            if (elementData[i] == null) {
+                break;
+            }else if (i == 0) {
+                stringBuffer.append(elementData[i].toString());
+                continue;
+            }
+            stringBuffer.append(", ").append(elementData[i].toString());
+        }
+        return "ArrayList{" +
+                "elementData=[" + stringBuffer + "]" +
+                '}';
     }
 }
