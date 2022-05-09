@@ -3,6 +3,7 @@ package com.github.algorithms.structure.array;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.StringJoiner;
 import java.util.function.Consumer;
 
 /**
@@ -149,6 +150,7 @@ public class ArrayList<E> implements Iterator<E>, Iterable<E>, Cloneable {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public ArrayList<E> clone() throws CloneNotSupportedException {
         ArrayList<E> arrayList = (ArrayList) super.clone();
@@ -158,18 +160,12 @@ public class ArrayList<E> implements Iterator<E>, Iterable<E>, Cloneable {
 
     @Override
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < elementData.length; i++) {
-            if (elementData[i] == null) {
-                break;
-            }else if (i == 0) {
-                stringBuffer.append(elementData[i].toString());
-                continue;
-            }
-            stringBuffer.append(", ").append(elementData[i].toString());
+        StringJoiner stringJoiner = new StringJoiner(", ", "[", "]");
+        for (int i = 0; i < size; i++) {
+            stringJoiner.add(elementData[i] == null? null : elementData[i].toString());
         }
         return "ArrayList{" +
-                "elementData=[" + stringBuffer + "]" +
+                "elementData=[" + stringJoiner + "]" +
                 '}';
     }
 }
