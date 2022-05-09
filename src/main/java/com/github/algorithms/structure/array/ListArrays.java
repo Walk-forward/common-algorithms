@@ -20,7 +20,7 @@ public class ListArrays {
      * @param arrayList 集合
      * @return 有序的集合
      */
-    public static <T extends Comparable<T>> ArrayList<T> quickSortA(ArrayList<T> arrayList) {
+    private static <T extends Comparable<T>> ArrayList<T> quickSortA(ArrayList<T> arrayList) {
         if (arrayList.size() < 2) {
             return arrayList;
         }
